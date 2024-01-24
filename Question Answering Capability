@@ -1,0 +1,26 @@
+Azure AI Language includes a question answering capability, which enables you to define a knowledge base of question and answer pairs that can be queried using natural language input.
+The knowledge base can be published to a REST endpoint and consumed by client applications, commonly bots.
+
+Reference link: https://language.cognitive.azure.com/
+
+To create a question answering solution, you can use the REST API or SDK to write code that defines, trains, and publishes the knowledge base. 
+To create a knowledge base you:
+
+Sign in to Azure portal.
+
+Search for Azure AI services using the search field at the top of the portal.
+
+Select Create under the Language Service resource.
+
+Create a resource in your Azure subscription:
+
+Enable the question answering feature.
+Create or select an Azure AI Search resource to host the knowledge base index.
+In Language Studio, select your Azure AI Language resource and create a Custom question answering project.
+
+Add one or more data sources to populate the knowledge base:
+
+URLs for web pages containing FAQs.
+Files containing structured text from which questions and answers can be derived.
+Predefined chit-chat datasets that include common conversational questions and responses in a specified style.
+Edit question and answer pairs in the portal.
