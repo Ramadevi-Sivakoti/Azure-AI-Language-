@@ -1,0 +1,25 @@
+After creating and testing a knowledge base, you can improve its performance with active learning and by defining synonyms.
+
+Active learning:
+Active learning can help you make continuous improvements to get better at answering user questions correctly over time. 
+People often ask questions that are phrased differently, but ultimately have the same meaning. 
+Active learning can help in situations like this because it enables you to consider alternate questions to each question and answer pair.
+Active learning is enabled by default.
+
+
+Synonyms:
+Synonyms are useful when questions submitted by users might include multiple different words to mean the same thing. 
+For example, a travel agency customer might refer to a "reservation" or a "booking". 
+By defining these as synonyms, the question answering service can find an appropriate answer regardless of which term an individual customer uses.
+
+To define synonyms, you use the REST API to submit synonyms in the following JSON format:
+{
+    "synonyms": [
+        {
+            "alterations": [
+                "reservation",
+                "booking"
+                ]
+        }
+    ]
+}
