@@ -1,0 +1,38 @@
+Data exploration and analysis is at the core of data science. Data scientists require skills in programming languages like Python to explore, visualize, and manipulate data.
+
+# Define an array of study hours
+study_hours = [10.0,11.5,9.0,16.0,9.25,1.0,11.5,9.0,8.5,14.5,15.5,13.75,9.0,8.0,15.5,8.0,9.0,6.0,10.0,12.0,12.5,12.0]
+
+# Create a 2D array (an array of arrays)
+student_data = np.array([study_hours, grades])
+
+Finding and filtering data in a DataFrame
+You can use the DataFrame's loc method to retrieve data for a specific index value, like this.
+
+# Get the data for index value 5
+df_students.loc[5]
+
+# Get the rows with index values from 0 to 5
+df_students.loc[0:5]
+
+
+Loading a DataFrame from a file
+We constructed the DataFrame from some existing arrays. However, in many real-world scenarios, data is loaded from sources such as files. Let's replace the student grades DataFrame with the contents of a text file.
+
+#!wget https://raw.githubusercontent.com/MicrosoftDocs/mslearn-introduction-to-machine-learning/main/Data/ml-basics/grades.csv
+df_students = pd.read_csv('grades.csv',delimiter=',',header='infer')
+df_students.head()
+
+When the DataFrame is retrieved, the missing numeric values show up as NaN (not a number)
+
+One common approach is to impute replacement values. For example, if the number of study hours is missing, we could just assume that the student studied for an average amount of time and replace the missing value with the mean study hours. To do this, we can use the fillna method, like this:
+    
+df_students.StudyHours = df_students.StudyHours.fillna(df_students.StudyHours.mean())
+df_students
+
+Alternatively, it might be important to ensure that you only use data you know to be absolutely correct. In this case, you can drop rows or columns that contain null values by using the dropna method. For example, we'll remove rows (axis 0 of the DataFrame) where any of the columns contain null values:
+
+df_students = df_students.dropna(axis=0, how='any')
+df_students
+
+
