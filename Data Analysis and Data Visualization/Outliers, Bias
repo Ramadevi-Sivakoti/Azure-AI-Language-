@@ -1,0 +1,22 @@
+Real-world data issues:
+
+It's important to realize that most real-world data are influenced by factors that weren't recorded at the time. 
+For example, we might have a table of race-car track times alongside engine sizes;
+but various other factors that weren't written down, such as the weather, probably also played a role. 
+If problematic, we can often reduce the influence of these factors by increasing the size of the dataset.
+
+OUTLIERS:
+Data points that are clearly outside of what's expected—also known as "outliers"—can sometimes be safely removed from analyses, 
+although we must take care to not remove data points that provide real insights.
+
+BIAS:
+An error in the data, often subtle or unnoticed.
+
+
+
+Real-world data will always have issues, but data scientists can often overcome these issues by:
+
+Checking for missing values and badly recorded data.
+Considering removing obvious outliers.
+Examining what real-world factors might affect their analysis and determining if their dataset size is large enough to reduce the impact of these factors.
+Checking for biased raw data and considering their options to fix the bias, if found.
