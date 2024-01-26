@@ -1,0 +1,129 @@
+The Azure AI Language Detection API evaluates text input and, 
+for each document submitted, returns language identifiers with a score indicating the strength of the analysis. 
+The Azure AI Language service recognizes up to 120 languages
+
+
+A sample of a properly formatted JSON payload that you might submit to the service in the request body is shown here, 
+including a collection of documents, each containing a unique id and the text to be analyzed.
+Optionally, you can provide a countryHint to improve prediction performance.
+
+
+{
+  "documents": [
+    {
+      "countryHint": "US",
+      "id": "1",
+      "text": "Hello world"
+    },
+    {
+      "id": "2",
+      "text": "Bonjour tout le monde"
+    }
+  ]
+}
+
+The service will return a JSON response that contains a result for each document in the request body, including the predicted language and a value indicating the confidence level of the prediction.
+The confidence level is a value ranging from 0 to 1 with values closer to 1 being a higher confidence level. 
+Here's an example of a standard JSON response that maps to the above request JSON.
+
+
+{
+  "documents": [
+   {
+     "id": "1",
+     "detectedLanguage": {
+       "name": "English",
+       "iso6391Name": "en",
+       "confidenceScore": 1
+     },
+     "warnings": []
+   },
+   {
+     "id": "2",
+     "detectedLanguage": {
+       "name": "French",
+       "iso6391Name": "fr",
+       "confidenceScore": 1
+     },
+     "warnings": []
+   }
+  ],
+  "errors": [],
+  "modelVersion": "2020-04-01"
+}
+
+
+Extracting key phrases:
+
+Key phrase extraction is the process of identifying the main points around the context of the document(s).
+
+As with language detection, the REST interface enables you to submit one or more documents for analysis.
+
+
+{
+  "documents": [
+    {
+      "id": "1",
+      "language": "en",
+      "text": "You must be the change you wish 
+               to see in the world."
+    },
+    {
+      "id": "2",
+      "language": "en",
+      "text": "The journey of a thousand miles 
+               begins with a single step."
+    }
+  ]
+}
+
+The response contains a list of key phrases detected in each document.
+
+
+{
+  "documents": [
+   {
+     "id": "1",
+     "keyPhrases": [
+       "change",
+       "world"
+     ],
+     "warnings": []
+   },
+   {
+     "id": "2",
+     "keyPhrases": [
+       "miles",
+       "single step",
+       "journey"
+     ],
+     "warnings": []
+   }
+  ],
+  "errors": [],
+  "modelVersion": "2020-04-01"
+}
+
+
+Analyze sentiment:
+
+Sentiment analysis is used to evaluate how positive or negative a text document is, 
+which can be useful in various workloads, such as:
+
+1. Evaluating a movie, book, or product by quantifying sentiment based on reviews.
+
+2. Prioritizing customer service responses to correspondence received through email 
+or social media messaging.
+
+
+Sentence sentiment is based on confidence scores for positive,
+negative, and neutral classification values between 0 and 1.
+
+
+
+Extract linked entities:
+
+In some cases, the same name might be applicable to more than one entity. 
+
+For example, "I saw Venus shining in the sky" is associated with the link https://en.wikipedia.org/wiki/Venus; 
+while "Venus, the goddess of beauty" is associated with https://en.wikipedia.org/wiki/Venus_(mythology).
