@@ -1,0 +1,97 @@
+Data scientists visualize data to understand it better. 
+They might scan the raw data, examine summary measures such as averages, or graph the data.
+Graphs are a powerful means of visualizing data, and data scientists often use graphs to discern moderately complex patterns quickly.
+
+ Loading our data
+
+import pandas as pd
+
+# Load data from a text file
+!wget https://raw.githubusercontent.com/MicrosoftDocs/mslearn-introduction-to-machine-learning/main/Data/ml-basics/grades.csv
+df_students = pd.read_csv('grades.csv',delimiter=',',header='infer')
+
+# Remove any rows with missing data
+df_students = df_students.dropna(axis=0, how='any')
+
+# Calculate who passed, assuming '60' is the grade needed to pass
+passes  = pd.Series(df_students['Grade'] >= 60)
+
+# Save who passed to the Pandas dataframe
+df_students = pd.concat([df_students, passes.rename("Pass")], axis=1)
+
+
+# Print the result out into this notebook
+df_students 
+
+
+Visualizing data with Matplotlib
+DataFrames provide a great way to explore and analyze tabular data, but sometimes a picture is worth a thousand rows and columns. 
+The Matplotlib library provides the foundation for plotting data visualizations that can greatly enhance your ability to analyze the data.
+
+
+from matplotlib import pyplot as plt
+
+# Create a bar plot of name vs grade
+plt.bar(x=df_students.Name, height=df_students.Grade)
+
+# Display the plot
+plt.show()
+
+
+Note that you used the pyplot class from Matplotlib to plot the chart. 
+This class provides many ways to improve the visual elements of the plot. For example, the following code:
+
+~ Specifies the color of the bar chart.
+~ Adds a title to the chart (so we know what it represents)
+~ Adds labels to the X and Y axes (so we know which axis shows which data)
+~ Adds a grid (to make it easier to determine the values for the bars)
+~ Rotates the X markers (so we can read them)
+
+
+# Create a bar plot of name vs grade
+plt.bar(x=df_students.Name, height=df_students.Grade, color='orange')
+
+# Customize the chart
+plt.title('Student Grades')
+plt.xlabel('Student')
+plt.ylabel('Grade')
+plt.grid(color='#95a5a6', linestyle='--', linewidth=2, axis='y', alpha=0.7)
+plt.xticks(rotation=90)
+
+# Display the plot
+plt.show()
+
+
+A plot is technically contained within a Figure. In the previous examples, 
+the figure was created implicitly for you, but you can create it explicitly. 
+For example, the following code creates a figure with a specific size
+
+# Create a Figure
+fig = plt.figure(figsize=(8,3))
+
+# Create a bar plot of name vs grade
+plt.bar(x=df_students.Name, height=df_students.Grade, color='orange')
+
+# Customize the chart
+plt.title('Student Grades')
+plt.xlabel('Student')
+plt.ylabel('Grade')
+plt.grid(color='#95a5a6', linestyle='--', linewidth=2, axis='y', alpha=0.7)
+plt.xticks(rotation=90)
+
+# Show the figure
+plt.show()
+
+
+
+A figure can contain multiple subplots, each on its own axis.
+
+Until now, you have used methods of the Matplotlib.pyplot object to plot charts. 
+However, Matplotlib is so foundational to graphics in Python that many packages, including Pandas,
+provide methods that abstract the underlying Matplotlib functions and simplify plotting. 
+For example, the DataFrame provides its own methods for plotting data as shown in the following example, which plots a bar chart of study hours.
+
+
+df_students.plot.bar(x='Name', y='StudyHours', color='teal', figsize=(6,4))
+
+
