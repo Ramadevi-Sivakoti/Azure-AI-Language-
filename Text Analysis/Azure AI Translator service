@@ -1,0 +1,67 @@
+Language detection:
+
+You can use the Detect function of the REST API to detect the language in which text is written.
+
+For example, you could submit the following text to the https://api.cognitive.microsofttranslator.com/detect?api-version=3.0 endpoint using curl.
+
+Here's the text we want to translate:
+
+{ 'Text' : 'こんにちは' }
+
+Here's a call using curl to the endpoint to detect the language of our text:
+
+curl -X POST "https://api.cognitive.microsofttranslator.com/detect?api-version=3.0" -H "Ocp-Apim-Subscription-Region: <your-service-region>" -H "Ocp-Apim-Subscription-Key: <your-key>" -H "Content-Type: application/json" -d "[{ 'Text' : 'こんにちは' }]
+
+
+The response to this request looks as follows, indicating that the text is written in Japanese:
+
+[
+  {
+    "language": "ja",
+    "score": 1.0,
+    "isTranslationSupported": true,
+    "isTransliterationSupported": true
+    
+    
+   }
+]
+
+The Translate function of the API supports numerous parameters that affect the output.
+
+Word alignment:
+In written English (using Latin script), spaces are used to separate words. However, in some other languages (and more specifically, scripts) this is not always the case.
+
+For example, translating "Smart Services" from en (English) to zh (Simplified Chinese) produces the result "智能服务", 
+and it's difficult to understand the relationship between the characters in the source text and the corresponding characters in the translation. 
+To resolve this problem, you can specify the includeAlignment parameter with a value of true in your call to produce the following result:
+
+
+
+[
+   {
+      "translations":[
+         {
+            "text":"智能服务",
+            "to":"zh-Hans",
+            "alignment":{
+               "proj":"0:4-0:1 6:13-2:3"
+            }
+         }
+      ]
+   }
+]
+
+
+Profanity filtering ( Filtering abusive content):
+------------------------------------------------
+
+Sometimes text contains profanities, which you might want to obscure or omit altogether in a translation. 
+You can handle profanities by specifying the profanityAction parameter, which can have one of the following values:
+
+1. NoAction: Profanities are translated along with the rest of the text.
+2. Deleted: Profanities are omitted in the translation.
+3. Marked: Profanities are indicated using the technique indicated in the profanityMarker parameter (if supplied). 
+           The default value for this parameter is Asterisk,which replaces characters in profanities with "*". 
+           As an alternative, you can specify a profanityMarker value of Tag, which causes profanities to be enclosed in XML tags.
+
+
