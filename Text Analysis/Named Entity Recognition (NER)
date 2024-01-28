@@ -1,0 +1,30 @@
+Custom NER is part of Azure AI Language in Azure AI services.
+
+
+Azure AI Language provides certain built-in entity recognition, to recognize things such as a person, location, organization, or URL. 
+Built-in NER allows you to set up the service with minimal configuration, and extract entities. 
+To call a built-in NER, create your service and call the endpoint for that NER service like this:
+
+<YOUR-ENDPOINT>/text/analytics/v3.0/entities/recognition/general
+
+
+High quality data will let you spend less time refining and yield better results from your model.
+
+1. Diversity - use as diverse of a dataset as possible without losing the real-life distribution expected in the real data. 
+You'll want to use sample data from as many sources as possible, each with their own formats and number of entities. 
+It's best to have your dataset represent as many different sources as possible.
+2. Distribution - use the appropriate distribution of document types. 
+A more diverse dataset to train your model will help your model avoid learning incorrect relationships in the data.
+3. Accuracy - use data that is as close to real world data as possible. 
+Fake data works to start the training process, but it likely will differ from real data in ways that can cause your model to not extract correctly.
+
+
+The Azure AI Language service enforces the following restrictions:
+
+Training - at least 10 files, and not more than 100,000
+Deployments - 10 deployment names per project
+APIs:
+      Authoring - this API creates a project, trains, and deploys your model. Limited to 10 POST and 100 GET per minute
+      Analyze - this API does the work of actually extracting the entities; it requests a task and retrieves the results. Limited to 20 GET or POST
+Projects - only 1 storage account per project, 500 projects per resource, and 50 trained models per project
+Entities - each entity can be up to 500 characters. You can have up to 200 entity types.
